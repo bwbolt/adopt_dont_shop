@@ -1,8 +1,5 @@
 # Adopt, don't Shop
 
-TEST TEST
-
-
 ### Existing database design
 ![visual-schema.png](https://i.postimg.cc/0ywZgQ1W/visual-schema.png)
 
