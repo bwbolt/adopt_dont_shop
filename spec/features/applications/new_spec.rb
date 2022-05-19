@@ -29,6 +29,7 @@ RSpec.describe 'applications#new', type: :feature do
 
       click_button("Submit Application")
       expect(page).to have_content("John Smith")
+      expect(page).to have_content("Your application has been received.")
     end
   end
 
