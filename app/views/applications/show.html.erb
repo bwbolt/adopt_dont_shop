@@ -7,4 +7,16 @@
 <%= @application.status %><br>
 <% @application.pets.each do |pet| %>
   <%= link_to pet.name, "/pets/#{pet.id}" %><br>
+<% end %><br>
+
+<% if @application.status == "In Progress" %>
+  <%= form_with url: "/applications/#{@application.id}", method: :get, local: true do |form| %>
+  <%= form.label "Add a Pet to this Application" %>
+  <%= form.text_field :pets_by_name %>
+  <%= form.submit "submit" %>
+<% end %>
+<% end %>
+
+<% @adoptable_pets.each do |pet| %>
+<%= pet.name %>
 <% end %>
