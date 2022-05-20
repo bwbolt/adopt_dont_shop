@@ -40,6 +40,12 @@ class ApplicationsController < ApplicationController
     end
   end
 
+  def update
+    application = Application.find(params[:id])
+    application.update(status: params[:application_status])
+    redirect_to("/applications/#{application[:id]}")
+  end
+
   private
 
   def applicant_params

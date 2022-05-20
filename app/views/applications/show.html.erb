@@ -1,32 +1,43 @@
 <div id="applicant_info">
+  Name:
   <%= @application.name %><br>
-  <%= @application.address %><br>
-  <%= @application.city %><br>
-  <%= @application.state %><br>
+  Address:
+  <%= @application.address %>
+  <%= @application.city %>
+  <%= @application.state %>
   <%= @application.zip %><br>
+  Reason for adopting:
   <%= @application.reason %><br>
+  Application Status:
   <%= @application.status %><br>
   <% @application.pets.each do |pet| %>
     <%= link_to pet.name, "/pets/#{pet.id}" %><br>
   <% end %><br>
 </div>
 
+<% if @application.status == "In Progress" && @application.pets.count > 0 %>
+  <%= form_with url: "/applications/#{@application.id}/update", method: :patch, local: true do |form| %>
+  <%= form.hidden_field :application_status, value: "Pending" %>
+  <%= form.submit "Submit Application" %>
+<% end %>
+<% end %><br>
+
 <% if @application.status == "In Progress" %>
-  <%= form_with url: "/applications/#{@application.id}", method: :get, local: true do |form| %>
-  <%= form.label "Add a Pet to this Application" %>
-  <%= form.text_field :pets_by_name %>
-  <%= form.submit "submit" %>
+<%= form_with url: "/applications/#{@application.id}", method: :get, local: true do |form| %>
+<%= form.label "Add a Pet to this Application" %>
+<%= form.text_field :pets_by_name %>
+<%= form.submit "submit" %>
 <% end %>
 <% end %>
 
 <% @adoptable_pets.each do |pet| %>
 <div id="pet-<%= pet.id %>">
 
-  <%= form_with url: "/application_pets", method: :post, local: true do |form| %>
-  <%= form.label pet.name %>
-  <%= form.hidden_field :pet_id, value: pet.id %>
-  <%= form.hidden_field :application_id, value: @application.id %>
-  <%= form.submit "Adopt #{pet.name}" %>
+<%= form_with url: "/application_pets", method: :post, local: true do |form| %>
+<%= form.label pet.name %>
+<%= form.hidden_field :pet_id, value: pet.id %>
+<%= form.hidden_field :application_id, value: @application.id %>
+<%= form.submit "Adopt #{pet.name}" %>
 <% end %>
 </div>
 
