@@ -1,0 +1,8 @@
+<h1>All Shelters</h1>
+
+<% @admin_shelters.each do |shelter| %>
+    <h3><%= shelter.name %></h3>
+    <p>City: <%= shelter.city %>, Rank: <%= shelter.rank %></p>
+    <p>Foster Program Available: <%= shelter.foster_program %></p>
+    <p>Created at: <%= shelter.created_at %></p>
+<% end %>

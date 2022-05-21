@@ -10,7 +10,7 @@ RSpec.describe "Admin Shelter Index" do
       aurora = Shelter.create(name: 'Aurora shelter', city: 'Aurora, CO', foster_program: false, rank: 9)
       dfl = Shelter.create(name: 'Dumb Friends League', city: 'Denver, CO', foster_program: true, rank: 2)
 
-      visit '/admin/sheters'
+      visit '/admin/shelters'
 
       expect(page).to have_content(aurora.name)
       expect(dfl.name).to appear_before(aurora.name)
