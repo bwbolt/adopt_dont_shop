@@ -56,11 +56,12 @@ RSpec.describe 'Application Show Page' do
     pet1 = shelter.pets.create!(adoptable: true, age: 1, breed: 'sphynx', name: 'Lucille Bald')
     application = Application.create(name: 'Zach Hazelwood', address: '1234 Fake Street', city: 'Faketown', state: 'CO',
                                      zip: 12_345, reason: 'I like dogs')
-    ApplicationPet.create!(application_id: application.id, pet_id: pet1.id)
     visit "/applications/#{application.id}"
+    expect(page).to_not have_selector(:button, 'Submit Application')
     fill_in 'pets_by_name', with: 'Lucille Bald'
     click_on 'submit'
     click_button("Adopt #{pet1.name}")
+    expect(page).to have_selector(:button, 'Submit Application')
     click_on 'Submit Application'
     expect(current_path).to eq("/applications/#{application.id}")
     expect(page).to have_content('Pending')
