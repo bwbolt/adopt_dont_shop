@@ -28,6 +28,9 @@ RSpec.describe 'applications#new', type: :feature do
       fill_in :reason, with: "I just think they're neat."
 
       click_button("Submit Application")
+
+# require "pry"; binding.pry
+      expect(current_path).to eq("/applications/#{Application.first.id}")
       expect(page).to have_content("John Smith")
       expect(page).to have_content("Your application has been received.")
     end

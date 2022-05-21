@@ -20,7 +20,7 @@ class ApplicationsController < ApplicationController
     applicant = Application.new(applicant_params)
     if applicant.save
       flash[:success] = 'Your application has been received.'
-      redirect_to '/applications'
+      redirect_to "/applications/#{applicant.id}"
     elsif applicant.errors.full_messages == ["Name can't be blank"]
       flash[:notice] = 'Please enter your Name'
       render :new
