@@ -73,8 +73,10 @@ RSpec.describe Shelter, type: :model do
         application = Application.create(name: 'Zach Hazelwood', address: '1234 Fake Street', city: 'Faketown', state: 'CO',
                                          zip: 12_345, reason: 'I like dogs')
         ApplicationPet.create!(application_id: application.id, pet_id: @pet_1.id)
+        application.update(status: "Pending")
 
-        expect(@shelter_1.has_pending_application).to eq([@pet_1])
+        expect(Shelter.has_pending_application).to eq([@shelter_1.name])
+      end
     end
   end
 end

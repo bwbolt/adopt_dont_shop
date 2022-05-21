@@ -34,9 +34,13 @@ RSpec.describe "Admin Shelter Index" do
                                        zip: 12_345, reason: 'I like dogs')
       ApplicationPet.create!(application_id: application.id, pet_id: pet1.id)
 
+      application.update(status: "Pending")
       visit '/admin/shelters'
 
-      expect("Shelters With Pending Applications").to appear_before(aurora.name)
+      within "#pending_applications" do
+        expect(page).to have_content(aurora.name)
+        expect(page).to_not have_content(dfl.name)
+      end
     end
   end
 end
