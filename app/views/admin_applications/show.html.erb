@@ -1,0 +1,44 @@
+<div id="applicant_info">
+  Name:
+  <%= @application.name %><br>
+  Address:
+  <%= @application.address %>
+  <%= @application.city %>
+  <%= @application.state %>
+  <%= @application.zip %><br>
+  Reason for adopting:
+  <%= @application.reason %><br>
+  Application Status:
+  <%= @application.status %><br>
+  <% @application.pets.each do |pet| %>
+    <div id="pet-<%= pet.id %>">
+      <%= link_to pet.name, "/pets/#{pet.id}" %>
+      <% if ApplicationPet.search(pet.id, @application.id).approval == nil %>
+        <%= form_with url: "/application_pets/#{ApplicationPet.search(pet.id, @application.id).id}", method: :patch, local: true do |form| %>
+        <%= form.hidden_field :application_id, value: @application.id%>
+        <%= form.submit "Approve" %>
+        <%= form.submit "Reject" %>
+      <% end %>
+      <% elsif ApplicationPet.search(pet.id, @application.id).approval == true %>
+        Approved!!
+        <% elsif ApplicationPet.search(pet.id, @application.id).approval == false %>
+          Rejected!!
+        <% end %>
+      </div>
+    <% end %><br>
+  </div>
+
+  <% if @application.status == "In Progress" && @application.pets.count > 0 %>
+    <%= form_with url: "/applications/#{@application.id}/update", method: :patch, local: true do |form| %>
+    <%= form.hidden_field :application_status, value: "Pending" %>
+    <%= form.submit "Submit Application" %>
+  <% end %>
+<% end %><br>
+
+<% if @application.status == "In Progress" %>
+  <%= form_with url: "/applications/#{@application.id}", method: :get, local: true do |form| %>
+  <%= form.label "Add a Pet to this Application" %>
+  <%= form.text_field :pets_by_name %>
+  <%= form.submit "submit" %>
+<% end %>
+<% end %>
