@@ -9,13 +9,17 @@ RSpec.describe 'the pets index' do
     visit "/pets"
 
     expect(page).to have_content(pet_1.name)
+    expect(page).to have_content(pet_1.id)
     expect(page).to have_content(pet_1.breed)
     expect(page).to have_content(pet_1.age)
+    expect(page).to have_content(pet_1.adoptable)
     expect(page).to have_content(shelter.name)
 
     expect(page).to have_content(pet_2.name)
+    expect(page).to have_content(pet_2.id)
     expect(page).to have_content(pet_2.breed)
     expect(page).to have_content(pet_2.age)
+    expect(page).to have_content(pet_2.adoptable)
     expect(page).to have_content(shelter.name)
   end
 
