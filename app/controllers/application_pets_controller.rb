@@ -10,6 +10,7 @@ class ApplicationPetsController < ApplicationController
     application_pet.update(approval: true) if params[:commit] == 'Approve'
     if params[:commit] == 'Reject'
       application_pet.update(approval: false)
+      application.update(status: 'Rejected')
     end
     if application.application_pets.pluck(:approval).all?(true)
       application.update(status: 'Approved')
