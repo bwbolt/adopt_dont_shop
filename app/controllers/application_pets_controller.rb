@@ -14,6 +14,9 @@ class ApplicationPetsController < ApplicationController
     end
     if application.application_pets.pluck(:approval).all?(true)
       application.update(status: 'Approved')
+      application.pets.each do |pet|
+        pet.update(adoptable: false)
+      end
     end
     redirect_to "/admin/applications/#{params[:application_id]}"
   end
