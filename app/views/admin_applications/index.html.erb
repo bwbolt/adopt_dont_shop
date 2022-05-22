@@ -1,0 +1,9 @@
+<h1>All Applicants</h1>
+
+<% @applications.each do |application| %>
+  <p>Applicant Name:
+    <%= application.name %></p>
+  <p>Application ID:
+    <%= application.id %></p>
+    <%= link_to "#{application.id}", "/admin/applications/#{application.id}" %>
+<% end %>
