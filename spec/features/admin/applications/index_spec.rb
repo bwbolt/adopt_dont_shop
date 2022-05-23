@@ -9,7 +9,7 @@ RSpec.describe "admin_applications#index" do
     ApplicationPet.create!(application_id: application.id, pet_id: pet1.id)
 
     visit "/admin/applications"
-save_and_open_page
+
     expect(page).to have_content("Zach Hazelwood")
     expect(page).to have_link("#{application.id}")
 

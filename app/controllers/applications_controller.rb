@@ -33,11 +33,11 @@ class ApplicationsController < ApplicationController
     elsif applicant.errors.full_messages == ["State can't be blank"]
       flash[:notice] = 'Please enter your State'
       render :new
-    elsif applicant.errors.full_messages == ["Zip can't be blank"]
-      flash[:notice] = 'Please enter your Zip Code'
-      render :new
     elsif applicant.errors.full_messages == ["Reason can't be blank"]
       flash[:notice] = 'Why would you like to adopt this pet?'
+      render :new
+    else
+      flash[:notice] = 'Please enter your Zip Code'
       render :new
     end
   end
