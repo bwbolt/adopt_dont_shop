@@ -13,6 +13,7 @@
   <% @pending_pets.each do |application| %>
     <% application.pets.each do |pet| %><br>
       <%= pet.name %>
+      <%= link_to "#{pet.name} Application", "/admin/applications/#{application.id}" %>
     <% end %>
   <% end %>
 </div>
