@@ -12,6 +12,11 @@ RSpec.describe 'the shelter show' do
     expect(page).to have_content(pet.adoptable)
     expect(page).to have_content(pet.breed)
     expect(page).to have_content(pet.shelter_name)
+
+    expect(page).to have_content("Age:")
+    expect(page).to have_content("Breed:")
+    expect(page).to have_content("Adoptable Status:")
+    expect(page).to have_content("Shelter:")
   end
 
   it "allows the user to delete a pet" do

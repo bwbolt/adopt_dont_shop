@@ -6,8 +6,18 @@ class ApplicationPetsController < ApplicationController
 
   def update
     application_pet = ApplicationPet.find(params[:id])
+    application = Application.find(params[:application_id])
     application_pet.update(approval: true) if params[:commit] == 'Approve'
-    application_pet.update(approval: false) if params[:commit] == 'Reject'
+    if params[:commit] == 'Reject'
+      application_pet.update(approval: false)
+      application.update(status: 'Rejected')
+    end
+    if application.application_pets.pluck(:approval).all?(true)
+      application.update(status: 'Approved')
+      application.pets.each do |pet|
+        pet.update(adoptable: false)
+      end
+    end
     redirect_to "/admin/applications/#{params[:application_id]}"
   end
 end

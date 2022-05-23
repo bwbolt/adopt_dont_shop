@@ -16,7 +16,11 @@
       <% if ApplicationPet.search(pet.id, @application.id).approval == nil %>
         <%= form_with url: "/application_pets/#{ApplicationPet.search(pet.id, @application.id).id}", method: :patch, local: true do |form| %>
         <%= form.hidden_field :application_id, value: @application.id%>
-        <%= form.submit "Approve" %>
+        <% if pet.adoptable == false %>
+          This pet has been approved for adoption, sorry!
+        <% else %>
+          <%= form.submit "Approve" %>
+        <% end %>
         <%= form.submit "Reject" %>
       <% end %>
       <% elsif ApplicationPet.search(pet.id, @application.id).approval == true %>
