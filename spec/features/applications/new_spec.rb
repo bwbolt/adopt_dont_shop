@@ -76,6 +76,45 @@ RSpec.describe 'applications#new', type: :feature do
 
       click_button("Submit Application")
       expect(page).to have_content("Why would you like to adopt this pet?")
+
+      # Missing City
+      visit "/applications/new"
+
+      fill_in :name, with: "John Smith"
+      fill_in :address, with: "222 Main St"
+      # fill_in :city, with: "Littleton"
+      fill_in :state, with: "CO"
+      fill_in :zip, with: 80808
+      fill_in :reason, with: "I just think they're neat."
+
+      click_button("Submit Application")
+      expect(page).to have_content("Please enter your City")
+
+      # Missing State
+      visit "/applications/new"
+
+      fill_in :name, with: "John Smith"
+      fill_in :address, with: "222 Main St"
+      fill_in :city, with: "Littleton"
+      # fill_in :state, with: "CO"
+      fill_in :zip, with: 80808
+      fill_in :reason, with: "I just think they're neat."
+
+      click_button("Submit Application")
+      expect(page).to have_content("Please enter your State")
+
+      # Missing Zip Code
+      visit "/applications/new"
+save_and_open_page
+      fill_in :name, with: "John Smith"
+      fill_in :address, with: "222 Main St"
+      fill_in :city, with: "Littleton"
+      fill_in :state, with: "CO"
+      # fill_in :zip, with: 80808
+      fill_in :reason, with: "I just think they're neat."
+
+      click_button("Submit Application")
+      expect(page).to have_content("Please enter your Zip Code")
     end
   end
 end
