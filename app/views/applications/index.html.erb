@@ -1,8 +1,9 @@
 <h1>All Applicants</h1>
+<br>
 
 <% @applications.each do |application| %>
-  <p>Applicant Name:
-    <%= application.name %></p>
+  <h4>Applicant Name:
+    <%= application.name %></h4>
   <p>Application ID:
     <%= application.id %></p>
 <% end %>
