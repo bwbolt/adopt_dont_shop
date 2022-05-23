@@ -105,7 +105,7 @@ RSpec.describe 'applications#new', type: :feature do
 
       # Missing Zip Code
       visit "/applications/new"
-save_and_open_page
+
       fill_in :name, with: "John Smith"
       fill_in :address, with: "222 Main St"
       fill_in :city, with: "Littleton"
