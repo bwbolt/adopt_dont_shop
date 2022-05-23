@@ -1,2 +1,7 @@
 <h1><%= @admin_shelter.first.name %></h1>
 <p>City: <%= @admin_shelter.first.city %></p>
+
+<div id="statistics" >
+<h2>Statistics:</h2>
+  <p> Average Age of Adoptable Pets: <%= @shelter_with_pets.average_age %>
+</div>
