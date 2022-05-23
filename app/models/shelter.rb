@@ -35,6 +35,6 @@ class Shelter < ApplicationRecord
 
   def self.has_pending_application
     # require "pry"; binding.pry
-    joins(pets: :applications).where(applications: {:status => "Pending"}).order(:name).pluck(:name)
+    joins(pets: :applications).where(applications: {:status => "Pending"}).order(:name)
   end
 end
