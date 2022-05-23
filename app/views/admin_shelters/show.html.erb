@@ -7,3 +7,12 @@
   <p> Number of Adoptable Pets: <%= @shelter_with_pets.adoptable_pets_count %>
   <p> Number of Adopted Pets: <%= @shelter_with_pets.adopted_pets_count %>
 </div>
+
+<div id="action_required" >
+  <h2>Action Required</h2>
+  <% @pending_pets.each do |application| %>
+    <% application.pets.each do |pet| %><br>
+      <%= pet.name %>
+    <% end %>
+  <% end %>
+</div>

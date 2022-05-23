@@ -50,6 +50,10 @@ class Shelter < ApplicationRecord
     joins(pets: :applications).where(applications: {:status => "Pending"}).order(:name)
   end
 
+  def pending_pets
+    # require "pry"; binding.pry
+  end
+
   def average_age
     adoptable_pets.average(:age)
   end
