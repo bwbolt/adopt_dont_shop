@@ -12,4 +12,9 @@ class Pet < ApplicationRecord
   def self.adoptable
     where(adoptable: true)
   end
+
+  def self.pending_pets
+#     a = joins(shelters: :applications).where(applications: {:status => "Pending"})
+# require "pry"; binding.pry
+  end
 end

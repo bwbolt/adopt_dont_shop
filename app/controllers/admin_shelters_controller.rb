@@ -7,5 +7,7 @@ class AdminSheltersController < ApplicationController
 
   def show
     @admin_shelter = Shelter.find_by_sql("SELECT shelters.name, shelters.city FROM shelters WHERE shelters.id = #{params[:id]}")
+    @shelter_with_pets = Shelter.find(params[:id])
+    @pending_pets = @shelter_with_pets.applications.where(status: 'Pending').distinct(:name)
   end
 end
