@@ -3,6 +3,7 @@ require 'rails_helper'
 RSpec.describe Pet, type: :model do
   describe 'relationships' do
     it { should belong_to(:shelter) }
+    it { should have_many(:application_pets) }
     it { should have_many(:applications).through(:application_pets) }
   end
 
@@ -34,7 +35,7 @@ RSpec.describe Pet, type: :model do
   end
 
   describe 'instance methods' do
-    describe '.shelter_name' do
+    describe '#shelter_name' do
       it 'returns the shelter name for the given pet' do
         expect(@pet_3.shelter_name).to eq(@shelter_1.name)
       end

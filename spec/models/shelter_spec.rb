@@ -3,7 +3,7 @@ require 'rails_helper'
 RSpec.describe Shelter, type: :model do
   describe 'relationships' do
     it { should have_many(:pets) }
-    it { should have_many(:applications).through(:pets)}
+    it { should have_many(:applications).through(:pets) }
   end
 
   describe 'validations' do
@@ -27,7 +27,7 @@ RSpec.describe Shelter, type: :model do
   describe 'class methods' do
     describe '#search' do
       it 'returns partial matches' do
-        expect(Shelter.search("Fancy")).to eq([@shelter_3])
+        expect(Shelter.search('Fancy')).to eq([@shelter_3])
       end
     end
 
@@ -48,7 +48,7 @@ RSpec.describe Shelter, type: :model do
         application = Application.create(name: 'Zach Hazelwood', address: '1234 Fake Street', city: 'Faketown', state: 'CO',
                                          zip: 12_345, reason: 'I like dogs')
         ApplicationPet.create!(application_id: application.id, pet_id: @pet_1.id)
-        application.update(status: "Pending")
+        application.update(status: 'Pending')
 
         expect(Shelter.has_pending_application).to eq([@shelter_1])
       end
@@ -77,6 +77,30 @@ RSpec.describe Shelter, type: :model do
     describe '.pet_count' do
       it 'returns the number of pets at the given shelter' do
         expect(@shelter_1.pet_count).to eq(3)
+      end
+    end
+
+    describe '.adopted_pets' do
+      it 'returns pets that have been adopted' do
+        expect(@shelter_1.adopted_pets).to eq([@pet_1])
+      end
+    end
+
+    describe '.adopted_pets_count' do
+      it 'returns the count of adopted pets' do
+        expect(@shelter_1.adopted_pets_count).to eq(1)
+      end
+    end
+
+    describe '.adoptable_pets_count' do
+      it 'returns the count of adoptable pets' do
+        expect(@shelter_1.adoptable_pets_count).to eq(2)
+      end
+    end
+
+    describe '.average_age' do
+      it 'returns the average age of the adoptable pets' do
+        expect(@shelter_1.average_age).to eq(4)
       end
     end
   end
