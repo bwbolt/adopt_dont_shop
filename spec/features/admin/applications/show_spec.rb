@@ -10,18 +10,24 @@ RSpec.describe 'Admin Application Show' do
                                 zip: 12_345, reason: 'I like dogs')
       ApplicationPet.create!(application_id: zach.id, pet_id: pet_1.id)
       ApplicationPet.create!(application_id: zach.id, pet_id: pet_2.id)
+
       zach.update(status: 'Pending')
+
       visit "/admin/applications/#{zach.id}"
+
       within "#pet-#{pet_1.id}" do
         expect(page).to have_link(pet_1.name)
         expect(page).to have_button('Approve')
       end
+
       within "#pet-#{pet_2.id}" do
         expect(page).to have_link(pet_2.name)
         expect(page).to have_button('Approve')
         click_on 'Approve'
       end
+
       expect(current_path).to eq("/admin/applications/#{zach.id}")
+
       within "#pet-#{pet_2.id}" do
         expect(page).to have_link(pet_2.name)
         expect(page).to_not have_button('Approve')
@@ -37,18 +43,24 @@ RSpec.describe 'Admin Application Show' do
                                 zip: 12_345, reason: 'I like dogs')
       ApplicationPet.create!(application_id: zach.id, pet_id: pet_1.id)
       ApplicationPet.create!(application_id: zach.id, pet_id: pet_2.id)
+
       zach.update(status: 'Pending')
+
       visit "/admin/applications/#{zach.id}"
+
       within "#pet-#{pet_1.id}" do
         expect(page).to have_link(pet_1.name)
         expect(page).to have_button('Reject')
       end
+
       within "#pet-#{pet_2.id}" do
         expect(page).to have_link(pet_2.name)
         expect(page).to have_button('Reject')
         click_on 'Reject'
       end
+
       expect(current_path).to eq("/admin/applications/#{zach.id}")
+
       within "#pet-#{pet_2.id}" do
         expect(page).to have_link(pet_2.name)
         expect(page).to_not have_button('Reject')
@@ -68,25 +80,33 @@ RSpec.describe 'Admin Application Show' do
       ApplicationPet.create!(application_id: zach.id, pet_id: pet_2.id)
       ApplicationPet.create!(application_id: bryce.id, pet_id: pet_1.id)
       ApplicationPet.create!(application_id: bryce.id, pet_id: pet_2.id)
+
       zach.update(status: 'Pending')
       bryce.update(status: 'Pending')
+
       visit "/admin/applications/#{zach.id}"
+
       within "#pet-#{pet_1.id}" do
         expect(page).to have_link(pet_1.name)
         expect(page).to have_button('Reject')
       end
+
       within "#pet-#{pet_2.id}" do
         expect(page).to have_link(pet_2.name)
         expect(page).to have_button('Reject')
         click_on 'Reject'
       end
+
       expect(current_path).to eq("/admin/applications/#{zach.id}")
+
       within "#pet-#{pet_2.id}" do
         expect(page).to have_link(pet_2.name)
         expect(page).to_not have_button('Reject')
         expect(page).to have_content('Rejected!!')
       end
+
       visit "/admin/applications/#{bryce.id}"
+
       within "#pet-#{pet_2.id}" do
         expect(page).to have_link(pet_2.name)
         expect(page).to have_button('Reject')
@@ -104,14 +124,19 @@ RSpec.describe 'Admin Application Show' do
                                 zip: 12_345, reason: 'I like dogs')
       ApplicationPet.create!(application_id: zach.id, pet_id: pet_1.id)
       ApplicationPet.create!(application_id: zach.id, pet_id: pet_2.id)
+
       zach.update(status: 'Pending')
+
       visit "/admin/applications/#{zach.id}"
+
       within "#pet-#{pet_1.id}" do
         click_on 'Approve'
       end
+
       within "#pet-#{pet_2.id}" do
         click_on 'Approve'
       end
+
       expect(page).to have_content('Application Status: Approved')
     end
 
@@ -123,14 +148,19 @@ RSpec.describe 'Admin Application Show' do
                                 zip: 12_345, reason: 'I like dogs')
       ApplicationPet.create!(application_id: zach.id, pet_id: pet_1.id)
       ApplicationPet.create!(application_id: zach.id, pet_id: pet_2.id)
+
       zach.update(status: 'Pending')
+
       visit "/admin/applications/#{zach.id}"
+
       within "#pet-#{pet_1.id}" do
         click_on 'Approve'
       end
+
       within "#pet-#{pet_2.id}" do
         click_on 'Reject'
       end
+
       expect(page).to have_content('Application Status: Rejected')
     end
 
@@ -142,15 +172,21 @@ RSpec.describe 'Admin Application Show' do
                                 zip: 12_345, reason: 'I like dogs')
       ApplicationPet.create!(application_id: zach.id, pet_id: pet_1.id)
       ApplicationPet.create!(application_id: zach.id, pet_id: pet_2.id)
+
       zach.update(status: 'Pending')
+
       visit "/admin/applications/#{zach.id}"
+
       within "#pet-#{pet_1.id}" do
         click_on 'Approve'
       end
+
       within "#pet-#{pet_2.id}" do
         click_on 'Approve'
       end
+
       visit "/pets/#{pet_1.id}"
+
       expect(page).to have_content('false')
     end
 
@@ -166,15 +202,20 @@ RSpec.describe 'Admin Application Show' do
       ApplicationPet.create!(application_id: zach.id, pet_id: pet_2.id)
       ApplicationPet.create!(application_id: bryce.id, pet_id: pet_1.id)
       ApplicationPet.create!(application_id: bryce.id, pet_id: pet_2.id)
+
       zach.update(status: 'Pending')
       bryce.update(status: 'Pending')
+
       visit "/admin/applications/#{zach.id}"
+
       within "#pet-#{pet_1.id}" do
         click_on 'Approve'
       end
+
       within "#pet-#{pet_2.id}" do
         click_on 'Approve'
       end
+
       visit "/admin/applications/#{bryce.id}"
 
       within "#pet-#{pet_1.id}" do
@@ -183,6 +224,7 @@ RSpec.describe 'Admin Application Show' do
         expect(page).to_not have_button('Approve')
         expect(page).to have_content('This pet has been approved for adoption, sorry!')
       end
+
       within "#pet-#{pet_2.id}" do
         expect(page).to have_link(pet_2.name)
         expect(page).to have_button('Reject')
