@@ -13,12 +13,12 @@
   </head>
 
   <body>
+    <%= render partial: "shared/navbar" %>
     <% flash.each do |type, msg| %>
-      <div>
+      <div class="container p-3 mb-2 bg-danger text-white">
         <%= msg %>
       </div>
     <% end %>
-    <%= render partial: "shared/navbar" %>
 
     <div class="container">
       <%= yield %>
