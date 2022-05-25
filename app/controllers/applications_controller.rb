@@ -7,8 +7,7 @@ class ApplicationsController < ApplicationController
 
   def show
     @adoptable_pets = if !params[:pets_by_name].nil? && params[:pets_by_name] != ''
-                        # Pet.where(name: params[:pets_by_name])
-                        Pet.where('lower(name) LIKE?', "%#{params[:pets_by_name].downcase}%").where(adoptable: true)
+                        Pet.search(params[:pets_by_name]).where(adoptable: true)
 
                       else
                         []
